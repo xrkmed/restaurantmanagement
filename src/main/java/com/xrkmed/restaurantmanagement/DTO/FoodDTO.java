@@ -1,55 +1,42 @@
-package com.xrkmed.restaurantmanagement.Model;
+package com.xrkmed.restaurantmanagement.DTO;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.github.dozermapper.core.Mapping;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "tb_foods")
-public class Food implements Serializable{
+@JsonPropertyOrder(value = {"id", "name", "price", "description", "picture_url"})
+public class FoodDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
 	
-	@Column(name = "name")
+	@JsonProperty(value = "id")
+	@Mapping("id")
+	private long key;
 	private String name;
-	
-	@Column(name = "description")
 	private String description;
-	
-	@Column(name = "picture_url")
+	@JsonProperty(value = "picture_url")
 	private String pictureUrl;
-	
-	@Column(name = "price")
 	private double price;
 
-	public Food() {
+	public FoodDTO() {
 	}
 	
-	public Food(Long id, String name, String description, double price, String pictureUrl) {
-		this.id = id;
+	public FoodDTO(Long key, String name, String description, double price, String pictureUrl) {
+		this.key = key;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.pictureUrl = pictureUrl;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getKey() {
+		return key;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public String getName() {
@@ -86,7 +73,7 @@ public class Food implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, name, pictureUrl, price);
+		return Objects.hash(description, key, name, pictureUrl, price);
 	}
 
 	@Override
@@ -97,11 +84,12 @@ public class Food implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Food other = (Food) obj;
-		return Objects.equals(description, other.description) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name) && Objects.equals(pictureUrl, other.pictureUrl)
+		FoodDTO other = (FoodDTO) obj;
+		return Objects.equals(description, other.description) && key == other.key && Objects.equals(name, other.name)
+				&& Objects.equals(pictureUrl, other.pictureUrl)
 				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price);
 	}
+
 	
 	
 }
