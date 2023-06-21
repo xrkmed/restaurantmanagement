@@ -3,12 +3,14 @@ package com.xrkmed.restaurantmanagement.DTO;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 
 @JsonPropertyOrder(value = {"id", "name", "price", "description", "picture_url"})
-public class FoodDTO implements Serializable {
+public class FoodDTO extends RepresentationModel<FoodDTO> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@JsonProperty(value = "id")
