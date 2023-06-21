@@ -1,6 +1,8 @@
 package com.xrkmed.restaurantmanagement.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -8,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,11 +33,16 @@ public class Food implements Serializable{
 	
 	@Column(name = "price")
 	private double price;
+	
+	@OneToMany(mappedBy = "food")
+	private List<FoodRating> ratings;
 
 	public Food() {
+		ratings = new ArrayList<>();
 	}
 	
 	public Food(Long id, String name, String description, double price, String pictureUrl) {
+		this();
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -80,6 +88,14 @@ public class Food implements Serializable{
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public List<FoodRating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<FoodRating> ratings) {
+		this.ratings = ratings;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.xrkmed.restaurantmanagement.DTO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.hateoas.RepresentationModel;
@@ -8,6 +10,7 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
+import com.xrkmed.restaurantmanagement.Model.FoodRating;
 
 @JsonPropertyOrder(value = {"id", "name", "price", "description", "picture_url"})
 public class FoodDTO extends RepresentationModel<FoodDTO> implements Serializable {
@@ -21,11 +24,14 @@ public class FoodDTO extends RepresentationModel<FoodDTO> implements Serializabl
 	@JsonProperty(value = "picture_url")
 	private String pictureUrl;
 	private double price;
+	private List<FoodRating> ratings;
 
 	public FoodDTO() {
+		ratings = new ArrayList<>();
 	}
 	
 	public FoodDTO(Long key, String name, String description, double price, String pictureUrl) {
+		this();
 		this.key = key;
 		this.name = name;
 		this.description = description;
@@ -71,6 +77,14 @@ public class FoodDTO extends RepresentationModel<FoodDTO> implements Serializabl
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public List<FoodRating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<FoodRating> ratings) {
+		this.ratings = ratings;
 	}
 
 	@Override
