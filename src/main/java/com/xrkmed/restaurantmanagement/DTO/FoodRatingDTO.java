@@ -1,46 +1,34 @@
-package com.xrkmed.restaurantmanagement.Model;
+package com.xrkmed.restaurantmanagement.DTO;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.github.dozermapper.core.Mapping;
+import com.xrkmed.restaurantmanagement.Model.Food;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "tb_ratings")
-public class FoodRating implements Serializable {
+public class FoodRatingDTO extends RepresentationModel<FoodRatingDTO> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(name = "author")
+	@Mapping(value = "id")
+	private long key;
 	private String author;
-	
-	@Column(name = "comment")
 	private String comment;
-	
-	@Column(name = "rating")
 	private float rating;
-	
-	@Column(name = "date")
 	private Date timestamp;
-	
-	@JsonIgnoreProperties(value = "ratings")
-	@ManyToOne
-	private Food food;
+	@JsonIgnore
+	private FoodDTO food;
 		
-	public FoodRating(long id, String author, String comment, float rating, Date timestamp, Food food) {
-		this.id = id;
+	public FoodRatingDTO(long key, String author, String comment, float rating, Date timestamp, FoodDTO food) {
+		this.key = key;
 		this.author = author;
 		this.comment = comment;
 		this.rating = rating;
@@ -48,15 +36,19 @@ public class FoodRating implements Serializable {
 		this.food = food;
 	}
 
-	public FoodRating() {
+	public FoodRatingDTO() {
+	}
+	
+	public long getFoodId() {
+		return food.getKey();
 	}
 
-	public long getId() {
-		return id;
+	public long getKey() {
+		return key;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setKey(long key) {
+		this.key = key;
 	}
 
 	public String getAuthor() {
@@ -83,11 +75,11 @@ public class FoodRating implements Serializable {
 		this.rating = rating;
 	}
 	
-	public Food getFood() {
+	public FoodDTO getFood() {
 		return food;
 	}
 
-	public void setFood(Food food) {
+	public void setFood(FoodDTO food) {
 		this.food = food;
 	}
 
@@ -105,7 +97,7 @@ public class FoodRating implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(author, comment, id, rating);
+		return Objects.hash(author, comment, key, rating);
 	}
 
 	@Override
@@ -116,8 +108,8 @@ public class FoodRating implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FoodRating other = (FoodRating) obj;
-		return Objects.equals(author, other.author) && Objects.equals(comment, other.comment) && id == other.id
+		FoodRatingDTO other = (FoodRatingDTO) obj;
+		return Objects.equals(author, other.author) && Objects.equals(comment, other.comment) && key == other.key
 				&& Float.floatToIntBits(rating) == Float.floatToIntBits(other.rating);
 	}
 	
