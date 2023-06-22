@@ -1,5 +1,6 @@
 package com.xrkmed.restaurantmanagement.Controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class FoodRatingController {
 	public FoodRatingDTO add(@PathVariable(value = "foodId") long foodId, @RequestBody FoodRatingDTO object) {
 		var foodDTO = foodService.findById(foodId);
 		object.setFood(foodDTO);
+		object.setTimestamp(new Date());
 		return service.create(object);
 	}
 	

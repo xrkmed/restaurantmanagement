@@ -10,14 +10,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.github.dozermapper.core.Mapping;
 import com.xrkmed.restaurantmanagement.Model.Food;
 
+@JsonPropertyOrder(value = {"id", "foodId", "author", "comment", "rating", "timestamp"})
 public class FoodRatingDTO extends RepresentationModel<FoodRatingDTO> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonProperty(value = "id")
 	@Mapping(value = "id")
 	private long key;
 	private String author;
