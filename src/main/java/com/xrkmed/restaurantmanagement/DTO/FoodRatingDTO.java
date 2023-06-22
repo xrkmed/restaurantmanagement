@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.github.dozermapper.core.Mapping;
 import com.xrkmed.restaurantmanagement.Model.Food;
 
-@JsonPropertyOrder(value = {"id", "foodId", "author", "comment", "rating", "timestamp"})
+@JsonPropertyOrder(value = {"id", "foodId", "author", "comment", "rating", "date"})
 public class FoodRatingDTO extends RepresentationModel<FoodRatingDTO> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -27,6 +27,7 @@ public class FoodRatingDTO extends RepresentationModel<FoodRatingDTO> implements
 	private String author;
 	private String comment;
 	private float rating;
+	@JsonProperty(value = "date")
 	private Date timestamp;
 	@JsonIgnore
 	private FoodDTO food;
