@@ -25,10 +25,8 @@ public class FoodDTO extends RepresentationModel<FoodDTO> implements Serializabl
 	@JsonProperty(value = "picture_url")
 	private String pictureUrl;
 	private double price;
-	private List<FoodRating> ratings;
 
 	public FoodDTO() {
-		ratings = new ArrayList<>();
 	}
 	
 	public FoodDTO(Long key, String name, String description, double price, String pictureUrl) {
@@ -78,14 +76,6 @@ public class FoodDTO extends RepresentationModel<FoodDTO> implements Serializabl
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-	
-	public List<FoodRating> getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(List<FoodRating> ratings) {
-		this.ratings = ratings;
 	}
 
 	@Override

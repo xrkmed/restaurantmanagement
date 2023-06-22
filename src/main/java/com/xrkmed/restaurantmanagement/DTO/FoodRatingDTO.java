@@ -24,7 +24,6 @@ public class FoodRatingDTO extends RepresentationModel<FoodRatingDTO> implements
 	private String comment;
 	private float rating;
 	private Date timestamp;
-	@JsonIgnore
 	private FoodDTO food;
 		
 	public FoodRatingDTO(long key, String author, String comment, float rating, Date timestamp, FoodDTO food) {
@@ -37,10 +36,6 @@ public class FoodRatingDTO extends RepresentationModel<FoodRatingDTO> implements
 	}
 
 	public FoodRatingDTO() {
-	}
-	
-	public long getFoodId() {
-		return food.getKey();
 	}
 
 	public long getKey() {
@@ -74,7 +69,7 @@ public class FoodRatingDTO extends RepresentationModel<FoodRatingDTO> implements
 	public void setRating(float rating) {
 		this.rating = rating;
 	}
-	
+
 	public FoodDTO getFood() {
 		return food;
 	}

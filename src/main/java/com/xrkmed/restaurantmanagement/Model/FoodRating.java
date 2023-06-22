@@ -11,7 +11,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,8 +38,8 @@ public class FoodRating implements Serializable {
 	@Column(name = "date")
 	private Date timestamp;
 	
-	@JsonIgnoreProperties(value = "ratings")
-	@ManyToOne
+	@OneToOne
+	@JoinColumn(name = "food_id")
 	private Food food;
 		
 	public FoodRating(long id, String author, String comment, float rating, Date timestamp, Food food) {
@@ -105,7 +108,7 @@ public class FoodRating implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(author, comment, id, rating);
+		return Objects.hash(author, comment, food, id, rating, timestamp);
 	}
 
 	@Override
@@ -117,10 +120,15 @@ public class FoodRating implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		FoodRating other = (FoodRating) obj;
-		return Objects.equals(author, other.author) && Objects.equals(comment, other.comment) && id == other.id
-				&& Float.floatToIntBits(rating) == Float.floatToIntBits(other.rating);
+		return Objects.equals(author, other.author) && Objects.equals(comment, other.comment)
+				&& Objects.equals(food, other.food) && id == other.id
+				&& Float.floatToIntBits(rating) == Float.floatToIntBits(other.rating)
+				&& Objects.equals(timestamp, other.timestamp);
 	}
-	
+
+
+
+
 	
 	
 	
