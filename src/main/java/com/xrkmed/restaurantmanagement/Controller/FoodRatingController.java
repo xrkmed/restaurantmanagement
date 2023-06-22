@@ -44,8 +44,10 @@ public class FoodRatingController {
 		return service.findAllByFoodId(id);
 	}
 	
-	@PostMapping(value = "/add")
-	public FoodRatingDTO add(@RequestBody FoodRatingDTO object) {
+	@PostMapping(value = "/add/{foodId}")
+	public FoodRatingDTO add(@PathVariable(value = "foodId") long foodId, @RequestBody FoodRatingDTO object) {
+		var foodDTO = foodService.findById(foodId);
+		object.setFood(foodDTO);
 		return service.create(object);
 	}
 	
